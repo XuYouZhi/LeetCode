@@ -24,12 +24,6 @@ The signature of the `C++` function had been updated. If you still see your func
 
 <div>
 
-<div id="company_tags" class="btn btn-xs btn-warning">Show Company Tags</div>
-
-<span class="hidebutton">[LinkedIn](/company/linkedin/)</span></div>
-
-<div>
-
 <div id="tags" class="btn btn-xs btn-warning">Show Tags</div>
 
 <span class="hidebutton">[Math](/tag/math/) [String](/tag/string/)</span></div>
