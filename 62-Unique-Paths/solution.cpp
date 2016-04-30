@@ -32,30 +32,49 @@
 // };
 
 
-// 方法三 备忘录  自顶向下解决 给深搜加个缓存  O(n^2)  O(n^2)
+// // 方法三 备忘录  自顶向下解决 给深搜加个缓存  O(n^2)  O(n^2)
+// class Solution {
+// public:
+//     int uniquePaths(int m, int n) {
+//         f=vector<vector<int>>(m,vector<int>(n,0));
+//         f[0][0]=1;
+//         return dfs(m-1,n-1);
+//     }
+    
+// private:
+//     vector<vector<int>> f; 
+    
+//     int dfs(int x,int y){
+//         if(x<0||y<0) return 0;
+        
+//         if(x==0&&y==0) return f[0][0];
+        
+//         if(f[x][y]>0){
+//             return f[x][y];
+//         }
+//         else{
+//             return f[x][y]=dfs(x-1,y)+dfs(x,y-1);
+//         }
+//     }
+// };
+
+
+
+// 方法四 动态规划 自底向上解决  O(n^2)  O(n)
+// f[i][j] 表示从起点到(i,j)的路径条数  状态转移：f[i][j]=f[i-1][j]+f[i][j-1]
 class Solution {
 public:
     int uniquePaths(int m, int n) {
-        f=vector<vector<int>>(m,vector<int>(n,0));
-        f[0][0]=1;
-        return dfs(m-1,n-1);
-    }
-    
-private:
-    vector<vector<int>> f; 
-    
-    int dfs(int x,int y){
-        if(x<0||y<0) return 0;
-        
-        if(x==0&&y==0) return f[0][0];
-        
-        if(f[x][y]>0){
-            return f[x][y];
+        vector<int> f(n,0);
+        f[0]=1;
+        for(int i=0;i<m;++i){
+            for(int j=1;j<n;++j){
+                // 右边的f[j]表示更新后的f[j], 对应公式中的f[i][j]
+                // 左边的f[j]表示之前的f[j],对应公式中的f[i-1][j]; f[j-1]对应f[i][j-1]
+                f[j]=f[j]+f[j-1];
+            }
         }
-        else{
-            return f[x][y]=dfs(x-1,y)+dfs(x,y-1);
-        }
+        
+        return f[n-1];
     }
 };
-
-
