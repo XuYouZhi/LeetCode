@@ -6,17 +6,11 @@ public:
         
         vector<int> result(n,-1);
         
-        int carry=0;
+        int carry=1;
         for(int i=n-1;i>=0;--i){
             int sum=digits[i]+carry;
-            if(i==n-1) sum+=1;
             carry=sum/10;
-            if(carry>0){
-                result[i]=sum%10;
-            }
-            else{
-                result[i]=sum;
-            }
+            result[i]=sum%10;
         }
         
         if(carry>0){
