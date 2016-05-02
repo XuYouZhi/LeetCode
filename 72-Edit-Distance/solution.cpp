@@ -58,36 +58,76 @@
 // };
 
 
-// 方法二 动态规划  O(n*m)  O(n*m)
-// f[i][j]表示 A[0,i]和B[0,j]之间的最小编辑距离, 设 c d为对应 A B 中的char
-// 1 如果c==d  f[i][j]=f[i-1][j-1]  2 c!=d  f[i][j]=min(x,y,z)  x=f[i-1][j-1]+1(c替换d)  y=f[i][j-1]+1(c后插入一个d)  z=f[i-1][j]+1
+// // 方法二 动态规划  O(n*m)  O(n*m)
+// // f[i][j]表示 A[0,i]和B[0,j]之间的最小编辑距离, 设 c d为对应 A B 中的char
+// // 1 如果c==d  f[i][j]=f[i-1][j-1]  2 c!=d  f[i][j]=min(x,y,z)  x=f[i-1][j-1]+1(c替换d)  y=f[i][j-1]+1(c后插入一个d)  z=f[i-1][j]+1
+// class Solution {
+// public:
+//     int minDistance(string word1, string word2) {
+//         const size_t m=word1.size();
+//         const size_t n=word2.size();
+        
+//         int f[m+1][n+1];
+//         for(size_t i=0;i<=m;++i){
+//             f[i][0]=i;
+//         }
+//         for(size_t j=0;j<=n;++j){
+//             f[0][j]=j;
+//         }
+        
+        
+//         for(size_t i=1;i<=m;++i){
+//             for(size_t j=1;j<=n;++j){
+//                 if(word1[i-1]==word2[j-1]){
+//                     f[i][j]=f[i-1][j-1];
+//                 }
+//                 else{
+//                     int tmp=min(f[i-1][j-1],f[i][j-1]);
+//                     f[i][j]=min(tmp,f[i-1][j])+1;
+//                 }
+//             }
+//         }
+        
+//         return f[m][n];
+//     }
+// };
+
+
+
+// 方法三 动态规划+滚动数组 O(m*n)  O(m)
+// 类似方法二，只是使用了一维数组记录，使用一个额外变量记录f[i-1][j-1]
 class Solution {
 public:
     int minDistance(string word1, string word2) {
-        const size_t m=word1.size();
-        const size_t n=word2.size();
-        
-        int f[m+1][n+1];
-        for(size_t i=0;i<=m;++i){
-            f[i][0]=i;
-        }
-        for(size_t j=0;j<=n;++j){
-            f[0][j]=j;
+        if(word1.length()<word2.length()){
+            return minDistance(word2,word1);
         }
         
+        int f[word2.length()+1];
+        int upper_left=0; // 记录f[i-1][j-1]的额外变量
         
-        for(size_t i=1;i<=m;++i){
-            for(size_t j=1;j<=n;++j){
+        for(size_t j=0;j<=word2.size();++j){
+            f[j]=j; //f[0][j]=j
+        }
+        
+        for(size_t i=1;i<=word1.size();++i){
+            upper_left=f[0];
+            f[0]=i;  // f[i][0]=i;
+            
+            for(size_t j=1;j<=word2.size();++j){ //f[][j]
+                int upper=f[j]; //f[i-1][j]
+                
                 if(word1[i-1]==word2[j-1]){
-                    f[i][j]=f[i-1][j-1];
+                    f[j]=upper_left; //f[i][j]=f[i-1][j-1]
                 }
                 else{
-                    int tmp=min(f[i-1][j-1],f[i][j-1]);
-                    f[i][j]=min(tmp,f[i-1][j])+1;
+                    f[j]=1+min(upper_left,min(f[j],f[j-1]));  //f[i-1][j-1]  f[i-1][j]  f[i][j-1]
                 }
+                
+                upper_left=upper;
             }
         }
         
-        return f[m][n];
+        return f[word2.length()];
     }
 };
