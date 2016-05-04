@@ -42,26 +42,55 @@
 
 
 
-// 方法二 迭代 二进制法 类似于位向量法  O(2^n) O(1) 
-// 前提是几何的元素不超过int位数。 用一个int表示为向量，第i为位为1，则表示选择s[i]，否则不选择
+// // 方法三 迭代 二进制法 类似于位向量法  O(2^n) O(1) 
+// // 前提是几何的元素不超过int位数。 用一个int表示为向量，第i为位为1，则表示选择s[i]，否则不选择
+// class Solution {
+// public:
+//     vector<vector<int>> subsets(vector<int>& nums) {
+//         vector<vector<int>> result;
+        
+//         sort(nums.begin(),nums.end());
+        
+//         const size_t n=nums.size();
+//         vector<int> v;
+        
+//         for(size_t i=0;i<1<<n;++i){
+//             for(size_t j=0;j<n;++j){
+//                 if(i&1<<j) v.push_back(nums[j]);
+//             }
+//             result.push_back(v);
+//             v.clear();
+//         }
+        
+//         return result;
+//     }
+// };
+
+
+// 方法四 递归 O(2^n) O(n)  每一个元素有两种选择:选 不选； 可以用增量构造，也可以用位向量（标记选不选）
 class Solution {
 public:
     vector<vector<int>> subsets(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
         vector<vector<int>> result;
         
-        sort(nums.begin(),nums.end());
-        
-        const size_t n=nums.size();
-        vector<int> v;
-        
-        for(size_t i=0;i<1<<n;++i){
-            for(size_t j=0;j<n;++j){
-                if(i&1<<j) v.push_back(nums[j]);
-            }
-            result.push_back(v);
-            v.clear();
-        }
+        vector<int> path;
+        subsets(nums,path,0,result);
         
         return result;
+    }
+    
+    void subsets(vector<int>& nums, vector<int>& path, int step, vector<vector<int>>& result){
+        if(step==nums.size()){
+            result.push_back(path);
+            return;
+        }
+        
+        //不选nums[step]
+        subsets(nums,path,step+1,result);
+        //选
+        path.push_back(nums[step]);
+        subsets(nums,path,step+1,result);
+        path.pop_back();
     }
 };
