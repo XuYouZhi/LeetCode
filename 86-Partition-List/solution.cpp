@@ -6,6 +6,8 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+ 
+// 代码一 O(n)  O(1)
 class Solution {
 public:
     ListNode* partition(ListNode* head, int x) {
@@ -20,7 +22,7 @@ public:
         }
         
         ListNode* p=insert_pos->next;
-        ListNode* pre=pre=insert_pos;
+        ListNode* pre=insert_pos;
         while(p){
             if(p->val<x){
                 cout<<pre->val<<endl;
