@@ -26,42 +26,68 @@
 
 
 
-// 代码二 递归+位向量 O(2^n) O(n)
+// // 代码二 递归+位向量 O(2^n) O(n)
+// class Solution {
+// public:
+//     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+//         sort(nums.begin(),nums.end());
+        
+//         vector<vector<int>> result;
+//         // 所有元素的个数
+//         vector<int> count(nums.back()-nums.front()+1,0);
+//         for(auto i:nums){
+//             count[i-nums[0]]++;
+//         }
+//         // 每个元素选择了多少个
+//         vector<int> selected(nums.back()-nums.front()+1,-1);
+        
+//         subsets(nums,count,selected,0,result);
+//         return result;
+//     }
+    
+// private:
+//     static void subsets(const vector<int>& nums, vector<int>& count, vector<int>& selected, size_t step, vector<vector<int>>& result){
+//         if(step==count.size()){
+//             vector<int> subset;
+//             for(size_t i=0;i<selected.size();++i){
+//                 for(int j=0;j<selected[i];++j){
+//                     subset.push_back(i+nums[0]);
+//                 }
+//             }
+            
+//             result.push_back(subset);
+//             return;
+//         }
+        
+//         for(int i=0;i<=count[step];++i){
+//             selected[step]=i;
+//             subsets(nums,count,selected,step+1,result);
+//         }
+//     }
+// };
+
+
+
+// 代码三 迭代 O(2^n) O(1)
 class Solution {
 public:
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
         sort(nums.begin(),nums.end());
         
-        vector<vector<int>> result;
-        // 所有元素的个数
-        vector<int> count(nums.back()-nums.front()+1,0);
-        for(auto i:nums){
-            count[i-nums[0]]++;
-        }
-        // 每个元素选择了多少个
-        vector<int> selected(nums.back()-nums.front()+1,-1);
+        vector<vector<int>> result(1);
         
-        subsets(nums,count,selected,0,result);
-        return result;
-    }
-    
-private:
-    static void subsets(const vector<int>& nums, vector<int>& count, vector<int>& selected, size_t step, vector<vector<int>>& result){
-        if(step==count.size()){
-            vector<int> subset;
-            for(size_t i=0;i<selected.size();++i){
-                for(int j=0;j<selected[i];++j){
-                    subset.push_back(i+nums[0]);
+        size_t previous_size=0;
+        for(size_t i=0;i<nums.size();++i){
+            const size_t size=result.size();
+            for(size_t j=0;j<size;++j){
+                if(i==0||nums[i]!=nums[i-1]||j>=previous_size){
+                    result.push_back(result[j]);
+                    result.back().push_back(nums[i]);
                 }
             }
-            
-            result.push_back(subset);
-            return;
+            previous_size=size; // 处理重复的数字情况
         }
         
-        for(int i=0;i<=count[step];++i){
-            selected[step]=i;
-            subsets(nums,count,selected,step+1,result);
-        }
+        return result;
     }
 };
