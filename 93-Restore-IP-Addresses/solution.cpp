@@ -17,8 +17,8 @@ public:
             return;
         }
         
-        if(s.size()-start>(4-ip.size())*3) return;
-        if(s.size()-start<(4-ip.size())) return;
+        if(s.size()-start>(4-ip.size())*3) return; //剪枝
+        if(s.size()-start<(4-ip.size())) return; //剪枝
         
         int num=0;
         for(size_t i=start;i<start+3;++i){
