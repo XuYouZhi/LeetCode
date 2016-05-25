@@ -33,7 +33,7 @@ public:
         return isValidBST(root,LONG_MIN,LONG_MAX);
     }
     
-    bool isValidBST(TreeNode* root, long int lower, long int upper){
+    bool isValidBST(TreeNode* root, long int lower, long int upper){ // 注意用long int, 用int的话会出错[2147483647]
         if(root==nullptr) return true;
         
         return root->val>lower&&root->val<upper&&isValidBST(root->left,lower,root->val)&&isValidBST(root->right,root->val,upper);
