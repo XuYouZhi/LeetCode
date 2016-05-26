@@ -7,7 +7,7 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-// 代码一 递归版
+// 代码一 递归版 O(n)  O(logn)
 class Solution {
 public:
     int maxDepth(TreeNode* root) {
