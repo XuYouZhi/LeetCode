@@ -1,4 +1,4 @@
-// 代码一 动态规划  O(n)  O(n)
+// 代码一 动态规划  O(n^2)  O(n)
 class Solution {
 public:
     vector<vector<int>> generate(int numRows) {
