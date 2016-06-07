@@ -45,24 +45,53 @@
 
 
 
-// 代码二 递归 O(n) O(1)
+// // 代码二 递归 O(n) O(1)
+// class Solution {
+// public:
+//     void connect(TreeLinkNode *root) {
+//         if(root==nullptr) return;
+        
+//         TreeLinkNode dummy(-1);
+//         for(TreeLinkNode *cur=root, *pre=&dummy;cur;cur=cur->next){
+//             if(cur->left!=nullptr){
+//                 pre->next=cur->left;
+//                 pre=pre->next;
+//             }
+//             if(cur->right!=nullptr){
+//                 pre->next=cur->right;
+//                 pre=pre->next;
+//             }
+//         }
+        
+//         connect(dummy.next);
+//     }
+// };
+
+
+
+// 代码三 迭代 O(n) O(1)
 class Solution {
 public:
     void connect(TreeLinkNode *root) {
-        if(root==nullptr) return;
-        
-        TreeLinkNode dummy(-1);
-        for(TreeLinkNode *cur=root, *pre=&dummy;cur;cur=cur->next){
-            if(cur->left!=nullptr){
-                pre->next=cur->left;
-                pre=pre->next;
+        while(root){
+            TreeLinkNode *next=nullptr;
+            TreeLinkNode *prev=nullptr;
+            
+            for(;root;root=root->next){
+                if(!next) next=root->left?root->left:root->right;
+                
+                if(root->left){
+                    if(prev) prev->next=root->left;
+                    prev=root->left;
+                }
+                
+                if(root->right){
+                    if(prev) prev->next=root->right;
+                    prev=root->right;
+                }
             }
-            if(cur->right!=nullptr){
-                pre->next=cur->right;
-                pre=pre->next;
-            }
+            
+            root=next;
         }
-        
-        connect(dummy.next);
     }
 };
