@@ -7,6 +7,7 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+// O(n)  O(logn)
 class Solution {
 public:
     int maxPathSum(TreeNode* root) {
