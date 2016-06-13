@@ -55,7 +55,7 @@ public:
                 //       result.insert(new_state);
                 //   }
                 
-                  //与word ladder不用的地方
+                  //与word ladder不用的地方，允许一个子节点有多个父节点  hog->hot   dot->hot
                   if(state_is_valid(new_state)){
                       auto visited_iter=visited.find(new_state);
                       if(visited_iter!=visited.end()){
