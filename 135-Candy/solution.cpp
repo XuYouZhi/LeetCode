@@ -29,7 +29,7 @@
 
 
 
-// 代码二 递归版 O(n)  O(n)
+// 代码二 递归版 备忘录法  O(n)  O(n)
 class Solution {
 public:
     int candy(vector<int>& ratings) {
