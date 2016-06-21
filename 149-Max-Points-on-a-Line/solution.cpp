@@ -22,6 +22,7 @@ public:
             
             for(int j=0;j<points.size();++j){
                 if(i==j) continue;
+                
                 double slope;
                 if(points[i].x==points[j].x){
                     slope=std::numeric_limits<double>::infinity();
