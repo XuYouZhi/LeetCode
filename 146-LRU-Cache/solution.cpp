@@ -19,7 +19,7 @@ public:
     int get(int key) {
         if(cacheMap.find(key)==cacheMap.end()) return -1;
         // 把当前访问的节点移到链表头部，并且更新map中该节点的地址
-        cacheList.splice(cacheList.begin(),cacheList,cacheMap[key]);
+        cacheList.splice(cacheList.begin(),cacheList,cacheMap[key]); // list的splice函数
         cacheMap[key]=cacheList.begin();
         return cacheMap[key]->value;
     }
