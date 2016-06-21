@@ -7,6 +7,7 @@
  *     Point(int a, int b) : x(a), y(b) {}
  * };
  */
+// O(n^2)  O(n)
 class Solution {
 public:
     int maxPoints(vector<Point>& points) {
