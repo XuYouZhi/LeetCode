@@ -1,3 +1,4 @@
+// 动态规划  O(n)  O(n)
 struct MinMax{
     int mi;
     int ma;
