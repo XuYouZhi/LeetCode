@@ -62,6 +62,9 @@
 
 
 // 代码二 深度遍历
+/*
+思路：用DFS先遍历右子树并记录遍历的深度，如果这个右子节点的深度大于当前所记录的最大深度，说明它是下一层的最右节点（因为我们先遍历右边，所   以每一层都是先从最右边进入），将其加入结果中。
+*/
 class Solution {
 public:
     vector<int> rightSideView(TreeNode* root) {
