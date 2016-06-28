@@ -16,26 +16,65 @@ global[i][j]就是我们所求的前i天最多进行k次交易的最大收益，
 [i-1][j]；如果第i天有交易（卖出），那么global[i][j]=local[i][j]。
 */
 
-// 代码一 动态规划 
+// // 代码一 动态规划 
+// class Solution {
+// public:
+//     int maxProfit(int k, vector<int>& prices) {
+//         const int n=prices.size();
+//         if(n<2) return 0;
+//         if(k>=n) return maxProfit_helper(prices);  // k大于天数时，其实就退化成 Best Time to Buy and Sell Stock II 了
+        
+//         vector<vector<int>> local(n,vector<int>(k+1,0));
+//         vector<vector<int>> global(n,vector<int>(k+1,0));
+        
+//         for(int i=1;i<n;++i){
+//             int diff=prices[i]-prices[i-1];
+//             for(int j=1;j<=k;++j){
+//                 local[i][j]=max(global[i-1][j-1],local[i-1][j]+diff);
+//                 global[i][j]=max(global[i-1][j],local[i][j]);
+//             }
+//         }
+        
+//         return global[n-1][k];
+//     }
+    
+    
+//     int maxProfit_helper(vector<int>& prices){
+//         int result=0;
+        
+//         for(int i=1;i<prices.size();++i){
+//             if(prices[i]>prices[i-1]){
+//                 result+=prices[i]-prices[i-1];
+//             }
+//         }
+        
+//         return result;
+//     }
+// };
+
+
+
+// 代码二 动态规划 滚动数组版
 class Solution {
 public:
     int maxProfit(int k, vector<int>& prices) {
         const int n=prices.size();
         if(n<2) return 0;
-        if(k>=n) return maxProfit_helper(prices);  // k大于天数时，其实就退化成 Best Time to Buy and Sell Stock II 了
+        if(k>=n) return maxProfit_helper(prices);
         
-        vector<vector<int>> local(n,vector<int>(k+1,0));
-        vector<vector<int>> global(n,vector<int>(k+1,0));
+        vector<int> local(k+1, 0);
+        vector<int> global(k+1,0);
         
         for(int i=1;i<n;++i){
             int diff=prices[i]-prices[i-1];
-            for(int j=1;j<=k;++j){
-                local[i][j]=max(global[i-1][j-1],local[i-1][j]+diff);
-                global[i][j]=max(global[i-1][j],local[i][j]);
+            for(int j=k;j>0;--j){ // 防止滚动过程中的污染
+                local[j]=max(global[j-1],local[j]+diff);
+                global[j]=max(global[j],local[j]);
+                
             }
         }
         
-        return global[n-1][k];
+        return global[k];
     }
     
     
