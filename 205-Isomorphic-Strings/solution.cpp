@@ -1,4 +1,4 @@
-// ab aa ; ab ca
+// 注意ab aa ; ab ca的情况
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
