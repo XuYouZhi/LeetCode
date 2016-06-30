@@ -51,9 +51,6 @@
 思路：定义二维数组graph来表示这个有向图，一位数组in来表示每个顶点的入度。我们开始先根据输入来建立这个有向图，并将入度数组也初始化好。然后   我们定义一个queue变量，将所有入度为0的点放入队列中，然后开始遍历队列，从graph里遍历其连接的点，每到达一个新节点，将其入度减一，如果   此时该点入度为0，则放入队列末尾。直到遍历完队列中所有的值，若此时还有节点的入度不为0，则说明环存在，返回false，反之则返回true。
 */
 class Solution {
-private:
-    unordered_map<int,vector<int>> course;
-    
 public:
     bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
         vector<vector<int>> graph(numCourses, vector<int>(0));
