@@ -37,7 +37,7 @@
 
 
 
-// 代码二 
+// 代码二  转换为二分查找 O(nlogn)
 class Solution {
 public:
     int minSubArrayLen(int s, vector<int>& nums) {
