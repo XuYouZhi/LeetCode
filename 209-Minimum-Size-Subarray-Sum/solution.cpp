@@ -63,7 +63,7 @@ public:
             int mid=left+(right-left)/2;
             //right=n-1 => while(left <= right) => right=middle-1;  
             //right=n   => while(left <  right) => right=middle; 
-            if(sums[mid]>=key) right=mid; // 注意为mid-1   
+            if(sums[mid]>=key) right=mid-1; // 注意为mid-1   
             else left=mid+1;
         }
         return left;
